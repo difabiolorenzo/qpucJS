@@ -1,0 +1,44 @@
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>Question Pour Un Champion</title>
+    <meta name="description" lang="fr" content="Question Pour Un Champion">
+    <link rel="stylesheet" type="text/css" title="css" href="src/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="src/img/favicon.png">
+    <script type="text/javascript" src="./src/js/script.js"></script>
+  </head>
+
+  <body id="body" onLoad="initGame()">
+    <!-- Page: Menu principal -->
+    <!-- Les pages devront être affichées une à la fois -->
+    <div class="page" id="game" style="display:block;">
+      <div id="point_amount" class="flex global_padding">
+        <label class="container">1 Point
+          <input id="1_point_question" type="radio" name="radio" onclick="game.add_point = 1;">
+          <span class="checkmark"></span>
+        </label>
+        <label class="container">2 Points
+          <input id="2_points_question" type="radio" name="radio" onclick="game.add_point = 2;">
+          <span class="checkmark"></span>
+        </label>
+        <label class="container">3 Points
+          <input id="3_points_question" type="radio" name="radio" onclick="game.add_point = 3;">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div id="player_score_placeolder">
+      </div>
+      <div id="actions" class="flex">
+        <button onclick="addPlayer()">Ajouter un joueur</button>
+        <button class="green_button" onclick="validateAnswer()">Bonne réponse</button>
+        <button class="orange_button" onclick="disablePlayer()">Mauvaise réponse</button>
+        <button class="blue_button" onclick="nextQuestion()">Question Suivante</button>
+        <button onclick="reinitGame()">Reinitialiser</button>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="./src/js/sounds/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="./src/js/sounds/jquery.playSound.js"></script>
+  </body>
+</html>
