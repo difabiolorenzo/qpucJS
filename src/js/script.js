@@ -44,6 +44,8 @@ function addPlayer(player_name) {
 function selectPlayer(player_id) {
     //prevent multiple player selection
     if (game.selected_player == "" && document.getElementById(player_id).classList[1] != "disabled") {
+        //prevent timer to interfer
+        stopTimer()
         //change class to selected player
         var html = document.getElementById(player_id);
         html.className = "player_score selected";
@@ -57,42 +59,52 @@ function selectPlayer(player_id) {
             game.add_point = 1
         }
 
-        var timeout_timer = setTimeout(function(){ disablePlayer(); }, 4000);
+        timeout_timer = setTimeout(function(){ disablePlayer(); }, 4000);
     }
 }
 
 function disablePlayer() {
     if (game.selected_player != "") {
+        //prevent timer to interfer
+        stopTimer()
+
         var player_id = game.selected_player
         document.getElementById(player_id).className = "player_score disabled"
         game.disabled_player_list.push(player_id)
         game.selected_player = ""
-    } else {
-        console.log("no player selected")
     }
     playsound("wrong_answer")
 
     //all player disabled
     if (game.disabled_player_list.length == game.player_list.length) {
-        var next_question_timer = setTimeout(function(){ playsound("timeout"); nextQuestion(); }, 1000);
+        next_question_timer = setTimeout(function(){ playsound("timeout"); nextQuestion(); }, 1000);
     }
+}
+
+function stopTimer() {
+    //reset timeout timer
+    if (typeof timeout_timer != 'undefined') {clearTimeout(timeout_timer);}
+    if (typeof next_question_timer != 'undefined') {clearTimeout(next_question_timer);}
 }
 
 function validateAnswer() {
     if (game.selected_player != "") {
+        //prevent timer to interfer
+        stopTimer()
+
         var player_id = document.getElementById(game.selected_player)
         var player_score = parseInt(player_id.children[1].innerText)
         player_score = player_score + game.add_point
     
         player_id.children[1].innerText = player_score
-        var next_question_timer = setTimeout(function(){ nextQuestion(); }, 1000);
-    } else {
-        console.log("no player selected")
+        next_question_timer = setTimeout(function(){ nextQuestion(); }, 1000);
     }
     playsound("points")
 }
 
 function nextQuestion() {
+    //prevent timer to interfer
+    stopTimer()
     // reinitialize add point
     game.add_point = 0
 
@@ -105,6 +117,9 @@ function nextQuestion() {
         var player_id = "player_" + i
         document.getElementById(player_id).className = "player_score idle"
     }
+    
+    //reset timeout timer
+    clearTimeout(timeout_timer);
 
     game.disabled_player_list = [];
     game.selected_player = ""
