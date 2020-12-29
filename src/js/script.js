@@ -8,15 +8,30 @@ function initGame() {
         time_to_answer: 5000
     }
     global = {
-        playsound_enabled: true
+        playsound_enabled: true,
+        dev_disable_timeout_selected_player: false,
+        dev_random_selected_player: false
     }
 
-    dev()
+    addPlayer(); 
+    addPlayer();
+
+    global.dev_disable_timeout_selected_player = true;
+    global.dev_random_selected_player = true
 }
 
 function dev() {
-    addPlayer()
-    addPlayer()
+    var radio_button_id = ["1_point_question", "2_points_question", "3_points_question"]
+    for (var i in radio_button_id) { document.getElementById(radio_button_id[i]).checked = false}
+
+    document.getElementById(radio_button_id[Math.floor(Math.random() * radio_button_id.length)]).checked = true
+
+    if (global.dev_random_selected_player == true && game.selected_player == "") {
+        selectPlayer("player_" + Math.round(Math.random(game.player_list.length) ), false)
+    }
+
+    setTimeout(function(){ validateAnswer(); }, 200);
+    
 }
 
 function reinitGame() {
@@ -36,12 +51,12 @@ function addPlayer(player_name) {
         player_name = "Joueur " + (player_amount + 1)
     }
 
-    var player_score_html = "<div id=\"" + player_id + "\" class=\"player_score idle\" onclick=\"selectPlayer(this.id)\"><p id=\"player_name\" class=\"no_margin\">" + player_name + "</p><p id=\"player_score\" class=\"no_margin\">0</p></div>";
+    var player_score_html = "<div id=\"" + player_id + "\" class=\"player_score idle\" onclick=\"selectPlayer(this.id, true)\"><p class=\"player_name no_margin\" class=\"no_margin\">" + player_name + "</p><p class=\"player_score no_margin\" class=\"no_margin\">0</p></div>";
 
     html.innerHTML += player_score_html
 }
 
-function selectPlayer(player_id) {
+function selectPlayer(player_id, play_buzzer_sound) {
     //prevent multiple player selection
     if (game.selected_player == "" && document.getElementById(player_id).classList[1] != "disabled") {
         //prevent timer to interfer
@@ -51,7 +66,9 @@ function selectPlayer(player_id) {
         html.className = "player_score selected";
 
         game.selected_player = player_id
-        playsound("buzzer")
+
+        if (play_buzzer_sound == true) { playsound("buzzer") }
+        
 
         //prevent to add nothing
         if (game.add_point == 0) {
@@ -59,7 +76,9 @@ function selectPlayer(player_id) {
             game.add_point = 1
         }
 
-        timeout_timer = setTimeout(function(){ disablePlayer(); }, 4000);
+        if (global.dev_disable_timeout_selected_player == true) {
+            timeout_timer = setTimeout(function(){ disablePlayer(); }, 4000);
+        }
     }
 }
 
@@ -97,7 +116,7 @@ function validateAnswer() {
         player_score = player_score + game.add_point
     
         player_id.children[1].innerText = player_score
-        next_question_timer = setTimeout(function(){ nextQuestion(); }, 1000);
+        nextQuestion();
     }
     playsound("points")
 }
@@ -129,31 +148,31 @@ function playsound(sound) {
     if (global.playsound_enabled == true) {
         switch (sound) {
             case "clock_effect":
-                $.playsound("src/sounds/clock_effect.mp3");
+                $.playsound("./src/sounds/clock_effect.mp3");
                 break;
             case "jingle_fin":
-                $.playsound("src/sounds/jingle_fin.mp3");
+                $.playsound("./src/sounds/jingle_fin.mp3");
                 break;
             case "passage_de_main":
-                $.playsound("src/sounds/passage_de_main.mp3");
+                $.playsound("./src/sounds/passage_de_main.mp3");
                 break;
             case "points":
-                $.playsound("src/sounds/points.mp3");
+                $.playsound("./src/sounds/points.mp3");
                 break;
             case "qualif":
-                $.playsound("src/sounds/qualif.mp3");
+                $.playsound("./src/sounds/qualif.mp3");
                 break;
             case "sound_110":
-                $.playsound("src/sounds/sound_110.mp3");
+                $.playsound("./src/sounds/sound_110.mp3");
                 break;
             case "buzzer":
-                $.playsound("src/sounds/sound_114_buzzer.mp3");
+                $.playsound("./src/sounds/sound_114_buzzer.mp3");
                 break;
             case "timeout":
-                $.playsound("src/sounds/timeout.mp3");
+                $.playsound("./src/sounds/timeout.mp3");
                 break;
             case "wrong_answer":
-                $.playsound("src/sounds/wrong_answer.mp3");
+                $.playsound("./src/sounds/wrong_answer.mp3");
                 break;
             default:
                 break;

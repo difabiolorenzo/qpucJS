@@ -1,10 +1,10 @@
 <html lang="fr">
   <head>
-    <meta charset="utf-8">
-    <title>Question Pour Un Champion</title>
-    <meta name="description" lang="fr" content="Question Pour Un Champion">
-    <link rel="stylesheet" type="text/css" title="css" href="src/css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="text/html; charset=UTF-8; x-content-type-options=nosniff" http-equiv="Content-Type" />
+    <meta name="description" lang="fr" content="Question Pour Un Champion">
+    <title>Question Pour Un Champion</title>
+    <link rel="stylesheet" type="text/css" title="css" href="src/css/style.css">
     <link rel="shortcut icon" type="image/x-icon" href="src/img/favicon.png">
     <script type="text/javascript" src="./src/js/script.js"></script>
   </head>
@@ -31,9 +31,10 @@
       </div>
       <div id="actions" class="flex">
         <button onclick="addPlayer()">Ajouter un joueur</button>
+        <!-- <button class="green_button" onclick="dev()">BONUX</button> -->
         <button class="green_button" onclick="validateAnswer()">Bonne réponse</button>
         <button class="orange_button" onclick="disablePlayer()">Mauvaise réponse</button>
-        <button class="blue_button" onclick="nextQuestion()">Question Suivante</button>
+        <button class="blue_button" onclick="nextQuestion(); playsound('timeout');">Question Suivante</button>
         <button onclick="reinitGame()">Reinitialiser</button>
       </div>
     </div>

@@ -1,0 +1,27 @@
+{
+  "short_name": "qpucJS",
+  "name": "qpucJS",
+  "theme_color": "#1b0544",
+  "background_color": "#1b0544",
+  "display": "fullscreen",
+  "Scope": "/",
+  "orientation": "landscpae",
+  "icons": [
+    {
+      "src": "./src/img/icon_48.jpg",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "./src/img/icon_96.jpg",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "./src/img/icon_192.jpg",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "index.html"
+}
