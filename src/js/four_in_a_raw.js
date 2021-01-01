@@ -26,6 +26,7 @@ function FOUR_validateAnswer() {
 
     if (game.four_in_a_raw.state == 4) {
         FOUR_stopTimer()
+        setTimeout(function(){ playsound("timeout"); }, 500);
     }
 }
 
