@@ -3,6 +3,11 @@
   src: url('../font/Gotham\ Medium.ttf');
 }
 
+@font-face {
+  font-family: 'Board of Directors';
+  src: url('../font/Board\ of\ Directors\ W00\ Regular.ttf');
+}
+
 :root {
   --qpuc_theme: #1b0544;
   --qpuc_background: #004165;
@@ -137,6 +142,7 @@ p.players_score {
   width: 100%;
   text-align: center;
   font-size: 15vh;
+  font-family: Board of Directors;
 }
 
 p#add_player_text {

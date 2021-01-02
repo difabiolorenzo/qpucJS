@@ -78,10 +78,12 @@ document.addEventListener('keydown', (event) => { const keyName = event.code;
         displayed_page: "menu",
         playsound_enabled: true,
     }
-    document.getElementById("version").innerHTML = "0.0.5";
+    document.getElementById("version").innerHTML = "0.0.6";
 
     game.nine_points.dev_disable_timeout_selected_player = true;
     game.nine_points.dev_random_selected_player = true;
+
+    // GLOBAL_gotoFinaleGamemode()
 }
 
 function GLOBAL_dev() {

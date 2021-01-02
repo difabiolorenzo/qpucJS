@@ -25,8 +25,8 @@ function FOUR_validateAnswer() {
     playsound("points")
 
     if (game.four_in_a_raw.state == 4) {
-        FOUR_stopTimer()
-        setTimeout(function(){ playsound("timeout"); }, 500);
+        FOUR_stopTimer();
+        playsound("qualif");
     }
 }
 
