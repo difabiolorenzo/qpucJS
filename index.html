@@ -1,11 +1,13 @@
 <html lang="fr">
   <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="text/html; charset=UTF-8; x-content-type-options=nosniff" http-equiv="Content-Type" />
+    <meta content="text/html; x-content-type-options=nosniff" http-equiv="application/force-download" />
     <meta name="description" lang="fr" content="Question Pour Un Champion">
     <title>Question Pour Un Champion</title>
     <link rel="stylesheet" type="text/css" title="css" href="src/css/style.css">
-    <link rel="shortcut icon" type="image/x-icon" href="src/img/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="./src/img/favicon.png">
+    <link rel="manifest" href="./Manifest.webmanifest" crossorigin="same-site">
     <script type="text/javascript" src="./src/js/global.js"></script>
     <script type="text/javascript" src="./src/js/nine_points.js"></script>
     <script type="text/javascript" src="./src/js/four_in_a_raw.js"></script>
@@ -18,7 +20,7 @@
       <div id="main_menu_content">
         <button class="big_button green_button" onclick="GLOBAL_gotoNinePointsGamemode()" autofocus="true">9 Points Gagnants</button>
         <button class="big_button green_button" onclick="GLOBAL_gotoFourinARawGamemode()">4 à la suite</button>
-        <button class="big_button orange_button" onclick="GLOBAL_gotoFinaleGamemode()" disabled>Face à Face</button>
+        <button disabled class="big_button orange_button" onclick="GLOBAL_gotoFinaleGamemode()">Face à Face</button>
         <button class="big_button" onclick="window.location.href = 'https://github.com/difabiolorenzo/qpucJS'">GitHub</button>
       </div>
       <div id="version_placeolder">
@@ -46,16 +48,17 @@
       </div>
       <div id="nine_points_players_score_placeolder">
       </div>
-      <div id="actions" class="global_padding">
+      <div class="actions_panel global_padding">
         <div class="flex">
-          <button id="correct_answer" class="green_button" onclick="NINE_validateAnswer()">Bonne réponse</button>
-          <button id="wrong_answer" class="orange_button" onclick="NINE_disablePlayer()">Mauvaise réponse</button>
-          <button class="blue_button" onclick="NINE_nextQuestion(); playsound('timeout');">Question Suivante</button>
+          <button id="nine_points_start" class="green_button" onclick="NINE_start()" style="display:block;">Commencer</button>
+          <button id="nine_points_correct_answer" class="green_button" onclick="NINE_validateAnswer()" style="display:none;">Bonne réponse</button>
+          <button id="nine_points_wrong_answer" class="orange_button" onclick="NINE_disablePlayer()" style="display:none;">Mauvaise réponse</button>
+          <button id="nine_points_next_question" class="blue_button" onclick="NINE_nextQuestion(); playsound('timeout');" style="display:none;">Question Suivante</button>
           <button class="blue_button" onclick="GLOBAL_dev()" style="display: none;">BONUX</button>
         </div>
         <div class="flex">
-          <button onclick="NINE_addPlayer()">Ajouter un joueur</button>
-          <button onclick="NINE_reinitNinePointsGamemode()">Reinitialiser</button>
+          <button id="nine_points_add_player" onclick="NINE_addPlayer()" style="display:block;">Ajouter un joueur</button>
+          <button onclick="NINE_reinitNinePointsGamemode()">Réinitialiser</button>
           <button onclick="GLOBAL_gotoMenu()">Retour</button>
         </div>
       </div>
@@ -64,12 +67,13 @@
     <!-- 4 à la suite -->
     <div class="page" id="four_in_a_raw" style="display:none;">
       <div id="progression_bar" class="global_padding">
-        <div id="four_in_a_raw_cell_3" class="four_in_a_raw_cell"><p class="p_text">4</p></div>
-        <div id="four_in_a_raw_cell_2" class="four_in_a_raw_cell"><p class="p_text">3</p></div>
-        <div id="four_in_a_raw_cell_1" class="four_in_a_raw_cell"><p class="p_text">2</p></div>
-        <div id="four_in_a_raw_cell_0" class="four_in_a_raw_cell"><p class="p_text">1</p></div>
+        <div id="four_in_a_raw_cell_4" class="four_in_a_raw_cell"><p class="p_text">4</p></div>
+        <div id="four_in_a_raw_cell_3" class="four_in_a_raw_cell"><p class="p_text">3</p></div>
+        <div id="four_in_a_raw_cell_2" class="four_in_a_raw_cell"><p class="p_text">2</p></div>
+        <div id="four_in_a_raw_cell_1" class="four_in_a_raw_cell"><p class="p_text">1</p></div>
+        <div id="four_in_a_raw_cell_0" class="four_in_a_raw_cell"><p class="p_text">0</p></div>
       </div>
-      <div id="actions" class="global_padding">
+      <div class="actions_panel global_padding">
         <div class="flex">
           <button id="four_in_a_raw_start" class="green_button" onclick="FOUR_start()" style="display:block;">Commercer</button>
           <button id="four_in_a_raw_correct_answer" class="green_button" onclick="FOUR_validateAnswer()" style="display:none;">Bonne réponse</button>
@@ -87,7 +91,44 @@
 
     <!-- Finale -->
     <div class="page" id="finale" style="display:none;">
-      
+      <div class="finale_cells" class="global_padding">
+        <div id="finale_cell_4" class="finale_cell">
+          <div class="final_filling_cell"></div>
+          <p class="final_cell_text p_text">4</p>
+        </div>
+        <div id="finale_cell_3" class="finale_cell">
+          <div class="final_filling_cell"></div>
+          <p class="final_cell_text p_text">3</p>
+        </div>
+        <div id="finale_cell_2" class="finale_cell">
+          <div class="final_filling_cell"></div>
+          <p class="final_cell_text p_text">2</p>
+        </div>
+        <div id="finale_cell_1" class="finale_cell">
+          <div class="final_filling_cell"></div>
+          <p class="final_cell_text p_text">1</p>
+        </div>
+      </div>
+
+      <div class="actions_panel global_padding">
+        <div class="flex">
+          <button id="finale_hand_player_0" onclick="FINALE_selectHand('player_0')" style="display:block;">Joueur 1</button>
+          <button id="finale_hand_player_1" onclick="FINALE_selectHand('player_1')" style="display:block;">Joueur 2</button>
+          <label id="finale_player_0" style="display:none;">0</label>
+          <label id="finale_player_1" style="display:none;">0</label>
+        </div>
+        <div class="flex">
+          <button id="finale_start" class="green_button" onclick="FINALE_start()" style="display:none;">Commercer</button>
+          <button id="finale_correct_answer" class="green_button" onclick="FINALE_validateAnswer()" style="display:none;">Bonne réponse</button>
+          <button id="finale_wrong_answer" class="orange_button" onclick="FINALE_wrongAnswer()" style="display:none;">Mauvaise réponse</button>
+          <button id="finale_start_timer" onclick="FINALE_startTimer()" style="display:none;">Lancer le chrono</button>
+        </div>
+        <div class="flex">
+          <button onclick="FINALE_reset()">Réinitialiser</button>
+          <button onclick="FINALE_nextQuestion()" style="display:none;">Question Suivante</button>
+          <button onclick="GLOBAL_gotoMenu()">Retour</button>
+        </div>
+      </div>
     </div>
 
     <script type="text/javascript" src="./src/js/sounds/jquery-2.2.0.min.js"></script>

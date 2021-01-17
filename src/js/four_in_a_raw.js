@@ -10,12 +10,12 @@ function FOUR_start() {
 
 function FOUR_validateAnswer() {
     var state = game.four_in_a_raw.state + 1;
-    if (state < 4) {
+    if (state < 5) {
         var html_selected_cell = document.getElementById("four_in_a_raw_cell_" + state);
         html_selected_cell.className = "four_in_a_raw_cell selected";
     }
 
-    if (state > 0 && state <= 4) {
+    if (state > 0 && state <= 5) {
         var previous_cell = document.getElementById("four_in_a_raw_cell_" + (state - 1));
         previous_cell.className = "four_in_a_raw_cell passed";
     }
@@ -24,7 +24,7 @@ function FOUR_validateAnswer() {
     game.four_in_a_raw.record_state = game.four_in_a_raw.state;
     playsound("points")
 
-    if (game.four_in_a_raw.state == 4) {
+    if (game.four_in_a_raw.state == 5) {
         FOUR_stopTimer();
         playsound("qualif");
     }
@@ -36,7 +36,6 @@ function FOUR_wrongAnswer() {
     for (var i = 0; i < state + 1; i++) {
         console.log(i)
         var html_cell = document.getElementById("four_in_a_raw_cell_" + i);
-        console.log(html_cell);
         html_cell.className = "four_in_a_raw_cell passed";
     }
 
@@ -58,7 +57,7 @@ function FOUR_reset() {
     game.four_in_a_raw.record_state = 0;
 
     //reinit all cell
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < 5; i++) {
         var html_cell = document.getElementById("four_in_a_raw_cell_" + i);
         html_cell.className = "four_in_a_raw_cell"
     }

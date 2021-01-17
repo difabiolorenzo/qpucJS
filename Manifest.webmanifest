@@ -5,7 +5,7 @@
   "background_color": "#1b0544",
   "display": "fullscreen",
   "Scope": "/",
-  "orientation": "landscpae",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "./src/img/icon_48.jpg",

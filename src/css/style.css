@@ -68,6 +68,7 @@ div.players_score {
   user-select: none;
   display: inline-block;
   box-shadow: inset 0 0 10px 0px black;
+  transition: 0.25s;
 }
 
 @keyframes selected_player_idle_animation {
@@ -187,7 +188,7 @@ div#nine_points_players_score_placeolder {
   display: block;
 }
 
-div#actions {
+.actions_panel {
   position: absolute;
   bottom: 0vh;
   width: -webkit-fill-available;
@@ -195,8 +196,11 @@ div#actions {
   padding: 7vh;
 }
 
-button,
-label {
+button {
+  cursor: pointer;
+}
+
+button, label {
   border: 2px solid;
   border-color: var(--qpuc_background_border);
   border-radius: 5px;
@@ -205,7 +209,6 @@ label {
   width: 100%;
   position: relative;
   text-align: center;
-  cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -213,6 +216,17 @@ label {
   background: linear-gradient(0deg, var(--qpuc_background_dark) 0%, var(--qpuc_background) 75%);
   color: white;
   box-shadow: inset 0 0 5px 0px rgb(0 0 0 / 60%);
+}
+
+input[type="text" i] {
+  font-family: "Gotham";
+  width: 100%;
+  text-align: center;
+  font-size: 4vh;
+  padding-top: 1vh;
+  color: unset;
+  background-color: unset;
+  border: unset;
 }
 
 .green_button {
@@ -253,14 +267,13 @@ div#main_menu_content {
 a#version {position:absolute;left:0;bottom:0;padding: 3%;}
 a#game {position:absolute;right:0;bottom:0;padding: 3%;}
 
-.four_in_a_raw_cell {
+.four_in_a_raw_cell { margin: 0.25vh 30vw; }
+
+
+.four_in_a_raw_cell, .finale_cell {
   border: 3px solid;
   border-color: var(--qpuc_background_border);
   border-radius: 10px;
-  margin-top: 0.25vh;
-  margin-right: 30vw;
-  margin-bottom: 0.25vh;
-  margin-left: 30vw;
   -webkit-user-select: none;
   user-select: none;
   box-shadow: inset 0 0 10px 0px white;
@@ -312,4 +325,29 @@ span.four_cell_filling {
     width: 100px;
 }
 
-p.p_text {}
+
+div#finale_cells {
+  display: grid;
+  padding: 1.5vh;
+  margin-top: 10vh;
+}
+
+.final_filling_cell {
+  top: 0;
+  left: 0;
+  background: var(--qpuc_orange);
+  opacity: 75%;
+  width: 100%;
+  position: relative;
+  height: 7vh;
+  transform: translate(0px, 3vh);
+}
+.finale_cell_left {
+  margin-left: 40vw;
+  margin-right: 25vw;
+}
+
+.finale_cell_right {
+  margin-left: 25vw;
+  margin-right: 40vw;
+}

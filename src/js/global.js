@@ -35,18 +35,28 @@ function playsound(sound) {
 }
 
 document.addEventListener('keydown', (event) => { const keyName = event.code;
-    if (game.gamemode == "9_points") {
+    if (game.gamemode == "nine_points") {
         if (keyName === 'Enter' || keyName === 'NumpadEnter') {
-            alert("enter");
+            if (game.nine_points.game_state == "started") {
+                NINE_validateAnswer()
+            }
           return;
         } else if (keyName === 'Equal' || keyName === 'NumpadAdd') {
-            alert("Equal");
+            if (game.nine_points.game_state == "started") {
+                NINE_addPlayer("dumy", undefined)
+            } else if (game.nine_points.game_state == "started") {
+                NINE_addPlayer("active", undefined)
+            }
           return;
         } else if (keyName === 'Space') {
-            alert("Equal");
+            if (game.nine_points.game_state == "started") {
+                NINE_nextQuestion(); playsound('timeout');
+            }
           return;
         } else if (keyName === 'Backspace') {
-            alert("Equal");
+            if (game.nine_points.game_state == "started") {
+                NINE_disablePlayer()
+            }
           return;
         }
     }
@@ -58,8 +68,9 @@ document.addEventListener('keydown', (event) => { const keyName = event.code;
         gamemode: "",
         player_list: [],
         nine_points: {
+            game_state: "waiting",
             default_player_amount: 2,
-            timer_after_until_player_selected: true,
+            timer_after_until_player_selected: false,
             time_to_answer: 4000,
             selected_player: "",
             player_points: [],
@@ -71,19 +82,23 @@ document.addEventListener('keydown', (event) => { const keyName = event.code;
         four_in_a_raw: {
             state: 0,
             record_state: 0,
-            timer: 40
+            timer: 40,
+            hand_player: "",
+            selected_player: "",
+            player_0_points: 0,
+            player_1_points: 0
         }
     }
     global = {
         displayed_page: "menu",
         playsound_enabled: true,
     }
-    document.getElementById("version").innerHTML = "0.0.6";
+    document.getElementById("version").innerHTML = "0.0.7";
 
     game.nine_points.dev_disable_timeout_selected_player = true;
     game.nine_points.dev_random_selected_player = true;
 
-    // GLOBAL_gotoFinaleGamemode()
+    // GLOBAL_gotoNinePointsGamemode()
 }
 
 function GLOBAL_dev() {
@@ -101,20 +116,26 @@ function GLOBAL_dev() {
 
 function GLOBAL_gotoMenu() {
     NINE_stopTimer();
+    
     FOUR_stopTimer()
+    FOUR_reset()
+
+    FINALE_reset()
+
     game.gamemode = "";
+
     GLOBAL_gotoSpecificPage("menu")
 }
 
 function GLOBAL_gotoNinePointsGamemode() {
     NINE_stopTimer();
-    game.gamemode = "nine-points";
+    game.gamemode = "nine_points";
     GLOBAL_gotoSpecificPage("nine_points")
 
     if (game.player_list.length == 0) {
         //Add player at start
         for (var i = 0; i < game.nine_points.default_player_amount; i++) {
-            NINE_addPlayer(); 
+            NINE_addPlayer("dumy", undefined); 
         }
     }
 }
