@@ -5,6 +5,7 @@ function FOUR_start() {
 
     var html_selected_cell = document.getElementById("four_in_a_raw_cell_0");
     html_selected_cell.className = "four_in_a_raw_cell selected";
+    game.four_in_a_raw.game_state = "started";
     FOUR_timer()
 }
 
@@ -30,11 +31,36 @@ function FOUR_validateAnswer() {
     }
 }
 
+function FOUR_addPlayer(qualifier, player_name) {
+    var html = document.getElementById("four_in_a_raw_players_score_placeolder")
+
+    var player_amount = html.children.length;
+    var player_id = "four_in_a_raw_player_" + player_amount;
+    var class_qualifier = "";
+    game.player_list.push(player_id);
+    game.four_in_a_raw.player_points.push(0);
+
+    if (player_name == undefined) {
+        player_name = "Joueur " + (player_amount + 1);
+    }
+
+    if (game.four_in_a_raw.game_state == "waiting") {
+        class_qualifier = "players_score disabled";
+    } else if (game.four_in_a_raw.game_state == "started") {
+        class_qualifier = "players_score idle";
+    }
+
+    var player_name_html = "<input type=\"text\" class=\"player_name no_margin\" value=\"" + player_name + "\" class=\"no_margin\"></input>";
+    var player_score_html = "<p class=\"players_score no_margin\" class=\"no_margin\">0</p>";
+    var player_score_div_html = "<div id=\"" + player_id + "\" class=\"" + class_qualifier + "\" onclick=\"NINE_selectPlayer(this.id, true)\">" + player_name_html + player_score_html + "</div>";
+
+    html.innerHTML += player_score_div_html;
+}
+
 function FOUR_wrongAnswer() {
     //passed all passed cell
     var state = game.four_in_a_raw.state;
     for (var i = 0; i < state + 1; i++) {
-        console.log(i)
         var html_cell = document.getElementById("four_in_a_raw_cell_" + i);
         html_cell.className = "four_in_a_raw_cell passed";
     }
@@ -64,7 +90,9 @@ function FOUR_reset() {
 
     //reinit timer
     game.four_in_a_raw.timer = 40;
-    document.getElementById("four_in_a_raw_timer").innerHTML = "40"
+    document.getElementById("four_in_a_raw_timer").innerHTML = "40";
+    
+    game.four_in_a_raw.game_state = "waiting";
     FOUR_stopTimer()
 }
 

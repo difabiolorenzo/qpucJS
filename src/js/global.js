@@ -42,10 +42,8 @@ document.addEventListener('keydown', (event) => { const keyName = event.code;
             }
           return;
         } else if (keyName === 'Equal' || keyName === 'NumpadAdd') {
-            if (game.nine_points.game_state == "started") {
+            if (game.nine_points.game_state == "waiting") {
                 NINE_addPlayer("dumy", undefined)
-            } else if (game.nine_points.game_state == "started") {
-                NINE_addPlayer("active", undefined)
             }
           return;
         } else if (keyName === 'Space') {
@@ -57,6 +55,19 @@ document.addEventListener('keydown', (event) => { const keyName = event.code;
             if (game.nine_points.game_state == "started") {
                 NINE_disablePlayer()
             }
+          return;
+        }
+    } else if (game.gamemode == "four_in_a_raw") {
+        if (keyName === 'Enter' || keyName === 'NumpadEnter') {
+          return;
+        } else if (keyName === 'Equal' || keyName === 'NumpadAdd') {
+            if (game.nine_points.game_state == "waiting") {
+                FOUR_addPlayer("dumy", undefined)
+            }
+          return;
+        } else if (keyName === 'Space') {
+          return;
+        } else if (keyName === 'Backspace') {
           return;
         }
     }
@@ -80,11 +91,13 @@ document.addEventListener('keydown', (event) => { const keyName = event.code;
             dev_random_selected_player: false
         },
         four_in_a_raw: {
+            game_state: "waiting",
             state: 0,
             record_state: 0,
             timer: 40,
             hand_player: "",
             selected_player: "",
+            player_points: [],
             player_0_points: 0,
             player_1_points: 0
         }
@@ -93,7 +106,7 @@ document.addEventListener('keydown', (event) => { const keyName = event.code;
         displayed_page: "menu",
         playsound_enabled: true,
     }
-    document.getElementById("version").innerHTML = "0.0.7";
+    document.getElementById("version").innerHTML = "0.0.8";
 
     game.nine_points.dev_disable_timeout_selected_player = true;
     game.nine_points.dev_random_selected_player = true;
